@@ -714,6 +714,27 @@ body {
     line-height: 1.9;
 }
 .work-description strong { color: #fff; }
+.job-picker-label {
+    display: block;
+    margin: 12px auto 6px;
+    color: rgba(255,255,255,.58);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.job-picker {
+    width: min(460px, 100%);
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 8px;
+    background: #101014;
+    color: #fff;
+    font: 600 11px 'Inter', sans-serif;
+}
+.job-picker:focus { outline: 1px solid #E11D48; border-color: #E11D48; }
 .action-only-panel { gap: 12px; }
 .action-only-panel .action-btn {
     min-width: 205px;
@@ -796,15 +817,21 @@ body {
     <!-- DESKRIPSI PEKERJAAN -->
     <div class="content action-only-content">
         <div class="work-description">
-            <h3>Mulai Perjalanan Kariermu</h3>
-            <p>Bergabunglah dan jadilah bagian dari perkembangan kota Los Santos. Pilih kesempatan kerja yang tersedia, jalankan tugas dengan penuh tanggung jawab, serta berikan kontribusi terbaik untuk masyarakat. Tekan <strong>Dapatkan Pekerjaan</strong> untuk mengajukan pekerjaan, lalu tekan <strong>Terima Pekerjaan</strong> untuk mengonfirmasi pilihanmu.</p>
+            <h3 id="jobTitle">Taxi Driver</h3>
+            <p id="jobSubtitle"></p>
+            <label class="job-picker-label" for="jobSelect">Pilih pekerjaan yang tersedia di server</label>
+            <select class="job-picker" id="jobSelect" onchange="changeJob(this.value)"></select>
+            <p id="description"></p>
         </div>
         <div class="action-only-panel">
             <button class="action-btn primary" onclick="selectJob()">
-                Dapatkan Pekerjaan <span>›</span>
+                Ajukan Pekerjaan <span>›</span>
             </button>
             <button class="action-btn" onclick="acceptJob()">
                 Terima Pekerjaan <span>›</span>
+            </button>
+            <button class="action-btn" onclick="takeGPS()">
+                GPS Lokasi <span>›</span>
             </button>
         </div>
     </div>
@@ -819,52 +846,64 @@ body {
 
 const jobs = [
 {
-    name: "Police Officer",
-    salary: "7.000$ per Day",
-    hours: "40 hours per week",
-    shift: "Rotating shifts",
-    subtitle: "Ensuring public safety and enforcing the law to maintain order in the city.",
-    description: "As a Police Officer, you are responsible for protecting the citizens of Los Santos by maintaining law and order. Your primary duties include patrolling neighborhoods, responding to emergency calls, and apprehending criminals. Your work will closely with other law enforcement agencies and emergency services to ensure that the city remains safe and secure."
+    id: 1,
+    name: "Taxi Driver",
+    subtitle: "Job Taxi Driver · ID 1",
+    description: "Antarkan penumpang menggunakan kendaraan Taxi. Pendaftaran dilakukan di lokasi Taxi."
 },
 {
-    name: "Firefighter",
-    salary: "6.000$ per Day",
-    hours: "35 hours per week",
-    shift: "Rotating shifts",
-    subtitle: "Protecting citizens and saving lives from dangerous fires.",
-    description: "As a Firefighter, you will respond to fire emergencies, rescue citizens, extinguish fires and provide emergency assistance. You must work together with your team to protect Los Santos."
+    id: 2,
+    name: "Mechanic",
+    subtitle: "Job Mechanic · ID 2",
+    description: "Bantu perbaikan dan layanan kendaraan. Pendaftaran dilakukan di lokasi Mechanic."
 },
 {
-    name: "Sheriff's Office Clerk",
-    salary: "4.000$ per Day",
-    hours: "35 hours per week",
-    shift: "Fixed shifts",
-    subtitle: "Managing administrative records and office operations.",
-    description: "Manage documents, organize reports, maintain public records and assist the Sheriff's Office with daily administrative operations."
+    id: 3,
+    name: "Lumber Jack",
+    subtitle: "Job Lumber Jack · ID 3",
+    description: "Kumpulkan dan olah kayu untuk mendapatkan penghasilan. Pendaftaran tersedia di area Lumber."
 },
 {
-    name: "Tax Collector",
-    salary: "5.000$ per Day",
-    hours: "30 hours per week",
-    shift: "Fixed shifts",
-    subtitle: "Managing tax payments and financial administration.",
-    description: "Collect taxes, manage financial reports and help maintain the financial administration system of Los Santos."
+    id: 4,
+    name: "Trucker",
+    subtitle: "Job Trucker · ID 4",
+    description: "Antarkan muatan dengan truk ke berbagai tujuan. Pendaftaran dilakukan di lokasi Trucker."
 },
 {
-    name: "Emergency Medical Technician",
-    salary: "6.500$ per Day",
-    hours: "40 hours per week",
-    shift: "Rotating shifts",
-    subtitle: "Providing emergency medical services to citizens.",
-    description: "Respond to medical emergencies, provide first aid, transport injured citizens and work with hospitals to save lives."
+    id: 5,
+    name: "Miner",
+    subtitle: "Job Miner · ID 5",
+    description: "Tambang dan kumpulkan material dari area pertambangan. Pendaftaran tersedia di lokasi Miner."
 },
 {
-    name: "City Clerk",
-    salary: "4.500$ per Day",
-    hours: "30 hours per week",
-    shift: "Fixed shifts",
-    subtitle: "Supporting city administration and public services.",
-    description: "Help manage city documents, public information, administrative services and daily government operations."
+    id: 6,
+    name: "Production",
+    subtitle: "Job Production · ID 6",
+    description: "Buat produk menggunakan bahan yang tersedia. Pendaftaran dilakukan di lokasi Production."
+},
+{
+    id: 7,
+    name: "Farmer",
+    subtitle: "Job Farmer · ID 7",
+    description: "Kelola aktivitas pertanian dan hasil panen. Pendaftaran dilakukan di lokasi Farmer."
+},
+{
+    id: 8,
+    name: "Courier",
+    subtitle: "Job Courier · ID 8",
+    description: "Antarkan paket ke tujuan menggunakan kendaraan kurir. Pendaftaran tersedia di lokasi Courier."
+},
+{
+    id: 9,
+    name: "Smuggler",
+    subtitle: "Job Smuggler · ID 9 · Minimal level 5",
+    description: "Jalankan pekerjaan Smuggler. Job ini membutuhkan level minimal 5 dan pendaftaran di lokasi Smuggler."
+},
+{
+    id: 10,
+    name: "Baggage Airport",
+    subtitle: "Job Baggage Airport · ID 10",
+    description: "Tangani pekerjaan bagasi di area bandara. Pendaftaran dilakukan di lokasi Baggage Airport."
 }
 ];
 
@@ -874,66 +913,44 @@ let selectedJob = false;
 /* CREATE JOB LIST */
 
 function renderJobs() {
-
-    const list = document.getElementById("jobList");
-
-    // Daftar pekerjaan sengaja disembunyikan pada tampilan ringkas.
-    if (!list) return;
-    list.innerHTML = "";
-
-    jobs.forEach((job,index) => {
-
-        const item = document.createElement("div");
-
-        item.className = "job-item" +
-            (index === currentJob ? " active" : "");
-
-        item.innerHTML = `
-            <span>${job.name}</span>
-            <span>›</span>
-        `;
-
-        item.onclick = () => changeJob(index);
-
-        list.appendChild(item);
-
+    const select = document.getElementById("jobSelect");
+    if (!select) return;
+    select.innerHTML = "";
+    jobs.forEach((job, index) => {
+        const option = document.createElement("option");
+        option.value = String(index);
+        option.textContent = job.name;
+        select.appendChild(option);
     });
-
+    changeJob(currentJob);
 }
 
 /* CHANGE JOB */
 
 function changeJob(index) {
-
-    currentJob = index;
+    const selectedIndex = Number(index);
+    if (!Number.isInteger(selectedIndex) || selectedIndex < 0 || selectedIndex >= jobs.length) return;
+    currentJob = selectedIndex;
     selectedJob = false;
 
-    const job = jobs[index];
-
-    document.getElementById("jobTitle").innerText = job.name;
-    document.getElementById("jobSubtitle").innerText = job.subtitle;
-    document.getElementById("salary").innerText = job.salary;
-    document.getElementById("hours").innerText = job.hours;
-    document.getElementById("shift").innerText = job.shift;
-    document.getElementById("description").innerText = job.description;
-
-    renderJobs();
-
+    const job = jobs[selectedIndex];
+    document.getElementById("jobTitle").textContent = job.name;
+    document.getElementById("jobSubtitle").textContent = job.subtitle;
+    document.getElementById("description").textContent = job.description;
+    const select = document.getElementById("jobSelect");
+    if (select) select.value = String(selectedIndex);
 }
 
 /* SELECT JOB */
 
 function selectJob() {
-
-    selectedJob = true;
-
-    notify("Anda memilih pekerjaan: " + jobs[currentJob].name);
-
-    // CEF EVENT
-    if (typeof cef !== "undefined") {
-        cef.emit("job:select", currentJob);
+    selectedJob = false;
+    if (typeof cef === "undefined") {
+        notify("CEF belum terhubung ke server.");
+        return;
     }
-
+    cef.emit("job:select", jobs[currentJob].id);
+    notify("Memeriksa lokasi dan persyaratan pekerjaan...");
 }
 
 /* ACCEPT JOB */
@@ -945,25 +962,24 @@ function acceptJob() {
         return;
     }
 
-    notify("Permintaan pekerjaan berhasil dikirim!");
-
-    // HUBUNGKAN DENGAN SERVER PAWN
-    if (typeof cef !== "undefined") {
-        cef.emit("job:accept", currentJob);
+    if (typeof cef === "undefined") {
+        notify("CEF belum terhubung ke server.");
+        return;
     }
-
+    cef.emit("job:accept", jobs[currentJob].id);
+    notify("Mengirim konfirmasi pekerjaan...");
 }
 
 /* GPS */
 
 function takeGPS() {
 
-    notify("GPS menuju lokasi pekerjaan!");
-
-    if (typeof cef !== "undefined") {
-        cef.emit("job:gps", currentJob);
+    if (typeof cef === "undefined") {
+        notify("CEF belum terhubung ke server.");
+        return;
     }
-
+    cef.emit("job:gps", jobs[currentJob].id);
+    notify("Menandai lokasi pendaftaran...");
 }
 
 /* NOTIFICATION */
@@ -984,14 +1000,28 @@ function notify(message) {
 /* CLOSE */
 
 function closeMenu() {
-
-    document.getElementById("main").style.display = "none";
-
     if (typeof cef !== "undefined") {
         cef.emit("job:close");
     }
 
 }
+
+window.addEventListener("job:status", function(event) {
+    const result = String(event.detail || "");
+    const separator = result.indexOf("|");
+    const status = separator < 0 ? "info" : result.slice(0, separator);
+    const message = separator < 0 ? result : result.slice(separator + 1);
+    if (status === "selected") selectedJob = true;
+    else if (status === "error" || status === "accepted") selectedJob = false;
+    notify(message || "Permintaan diterima server.");
+});
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        event.preventDefault();
+        closeMenu();
+    }
+});
 
 /* INIT */
 
