@@ -783,6 +783,290 @@ body {
     .action-only-panel .action-btn { max-width: 300px; }
 }
 
+.container {
+    width: min(1080px, calc(100vw - 36px));
+    max-height: calc(100vh - 48px);
+}
+.header {
+    height: 132px;
+    min-height: 132px;
+    margin-bottom: 12px;
+}
+.header-description {
+    max-width: 36%;
+    color: rgba(255,255,255,.72);
+}
+.character {
+    height: 150px;
+    width: 175px;
+}
+.content.job-center-layout {
+    height: min(470px, calc(100vh - 220px));
+    min-height: 370px;
+    display: grid;
+    grid-template-columns: 285px minmax(0, 1fr);
+    gap: 12px;
+}
+.jobs-panel,
+.job-detail-panel {
+    min-width: 0;
+    min-height: 0;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 14px;
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(225,29,72,.09), transparent 60%),
+        linear-gradient(145deg, rgba(13,13,16,.99), rgba(4,4,6,.99));
+    box-shadow: inset 0 1px rgba(255,255,255,.08), 0 12px 28px rgba(0,0,0,.4);
+}
+.jobs-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 10px 10px;
+}
+.jobs-panel-header {
+    height: 34px;
+    padding: 0 7px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgba(255,255,255,.62);
+    font: 800 9px 'Inter', sans-serif;
+    letter-spacing: 1.4px;
+}
+.jobs-count {
+    color: #ff6078;
+    font-size: 8px;
+}
+.job-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 4px;
+    scrollbar-color: #9f1239 rgba(255,255,255,.05);
+    scrollbar-width: thin;
+}
+.job-card {
+    width: 100%;
+    min-height: 40px;
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr) 14px;
+    align-items: center;
+    gap: 9px;
+    padding: 6px 9px;
+    text-align: left;
+    color: rgba(255,255,255,.78);
+    background: rgba(255,255,255,.035);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .16s ease, border-color .16s ease, transform .16s ease;
+}
+.job-card:hover {
+    transform: translateX(2px);
+    background: rgba(255,255,255,.08);
+    border-color: rgba(255,255,255,.2);
+}
+.job-card.active {
+    color: #fff;
+    background: linear-gradient(100deg, rgba(225,29,72,.32), rgba(225,29,72,.08));
+    border-color: rgba(225,29,72,.78);
+    box-shadow: inset 3px 0 #E11D48, 0 5px 15px rgba(0,0,0,.24);
+}
+.job-card-id {
+    width: 29px;
+    height: 27px;
+    display: grid;
+    place-items: center;
+    color: #ff647b;
+    background: rgba(225,29,72,.12);
+    border: 1px solid rgba(225,29,72,.24);
+    border-radius: 7px;
+    font: 800 9px 'Inter', sans-serif;
+}
+.job-card.active .job-card-id {
+    color: #fff;
+    background: #E11D48;
+}
+.job-card-copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.job-card-name {
+    overflow: hidden;
+    color: inherit;
+    font: 700 10px 'Inter', sans-serif;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.job-card-type {
+    color: rgba(255,255,255,.42);
+    font: 700 7px 'Inter', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.job-card-arrow {
+    color: rgba(255,255,255,.35);
+    font: 700 16px 'Inter', sans-serif;
+}
+.job-card.active .job-card-arrow { color: #ff647b; }
+.job-detail-panel {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 28px 18px;
+}
+.job-detail-panel:after {
+    content: "";
+    position: absolute;
+    top: -110px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    border: 1px solid rgba(225,29,72,.13);
+    border-radius: 50%;
+    box-shadow: 0 0 0 24px rgba(225,29,72,.025), 0 0 0 50px rgba(225,29,72,.018);
+    pointer-events: none;
+}
+.job-detail-heading {
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,.11);
+}
+.job-emblem {
+    width: 64px;
+    height: 64px;
+    flex: 0 0 64px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: linear-gradient(145deg, #f32642, #8b1028);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 16px;
+    box-shadow: 0 8px 22px rgba(225,29,72,.23), inset 0 1px rgba(255,255,255,.28);
+    font: 800 17px 'Plus Jakarta Sans', sans-serif;
+}
+.job-heading-copy { min-width: 0; }
+.job-kicker {
+    margin-bottom: 5px;
+    color: #ff6078;
+    font: 800 8px 'Inter', sans-serif;
+    letter-spacing: 1.8px;
+}
+.job-heading-copy h3 {
+    overflow: hidden;
+    margin: 0;
+    color: #fff;
+    font: 800 26px 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -.5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.job-heading-copy p {
+    margin-top: 4px;
+    color: rgba(255,255,255,.48);
+    font: 600 9px 'Inter', sans-serif;
+}
+.job-description {
+    z-index: 1;
+    min-height: 76px;
+    margin: 19px 0;
+    color: rgba(255,255,255,.72);
+    font: 500 11px/1.9 'Inter', sans-serif;
+}
+.job-meta-grid {
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 8px;
+    margin-bottom: auto;
+}
+.job-meta {
+    min-width: 0;
+    padding: 11px 12px;
+    background: rgba(255,255,255,.035);
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 9px;
+}
+.job-meta small,
+.job-meta strong {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.job-meta small {
+    margin-bottom: 7px;
+    color: rgba(255,255,255,.4);
+    font: 800 7px 'Inter', sans-serif;
+    letter-spacing: 1px;
+}
+.job-meta strong {
+    color: #fff;
+    font: 700 9px 'Inter', sans-serif;
+}
+.job-meta:first-child strong { color: #75e0a1; }
+.job-actions {
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 8px;
+    margin-top: 20px;
+}
+.job-actions .action-btn {
+    min-width: 0;
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    justify-content: center;
+    border-radius: 8px;
+    font: 800 9px 'Inter', sans-serif;
+    letter-spacing: .3px;
+}
+.job-actions .action-btn:disabled {
+    opacity: .38;
+    cursor: not-allowed;
+    transform: none;
+}
+.job-selection-hint {
+    z-index: 1;
+    min-height: 14px;
+    margin-top: 11px;
+    color: rgba(255,255,255,.43);
+    text-align: center;
+    font: 600 8px 'Inter', sans-serif;
+}
+@media (max-width: 760px) {
+    .container { width: calc(100vw - 24px); }
+    .header { height: 116px; min-height: 116px; padding: 0 14px; }
+    .logo { width: 60%; }
+    .brand-logo { width: 66px; height: 66px; flex-basis: 66px; }
+    .logo-info h2 { font-size: 20px; }
+    .header-description { display: none; }
+    .character { width: 135px; height: 130px; }
+    .content.job-center-layout {
+        grid-template-columns: 220px minmax(0,1fr);
+        height: min(470px, calc(100vh - 185px));
+        min-height: 320px;
+    }
+    .job-detail-panel { padding: 18px 16px 12px; }
+    .job-detail-heading { gap: 11px; }
+    .job-emblem { width: 52px; height: 52px; flex-basis: 52px; }
+    .job-heading-copy h3 { font-size: 19px; }
+    .job-meta-grid { grid-template-columns: 1fr; gap: 5px; }
+    .job-meta { padding: 7px 9px; }
+    .job-meta small { margin-bottom: 3px; }
+    .job-actions { grid-template-columns: 1fr; gap: 5px; margin-top: 10px; }
+    .job-actions .action-btn { height: 34px; }
+}
+
 </style>
 </head>
 
@@ -804,9 +1088,8 @@ body {
         </div>
 
         <div class="header-description">
-            You can provide feedback on the listed jobs
-            from the feedback section and share your
-            thoughts about the jobs with us.
+            Temukan pekerjaan yang cocok, pasang GPS ke lokasi pendaftaran,
+            lalu mulai perjalanan kariermu di Eternal State.
         </div>
 
         <!-- GANTI GAMBAR NPC DI SINI -->
@@ -815,25 +1098,36 @@ body {
     </div>
 
     <!-- DESKRIPSI PEKERJAAN -->
-    <div class="content action-only-content">
-        <div class="work-description">
-            <h3 id="jobTitle">Taxi Driver</h3>
-            <p id="jobSubtitle"></p>
-            <label class="job-picker-label" for="jobSelect">Pilih pekerjaan yang tersedia di server</label>
-            <select class="job-picker" id="jobSelect" onchange="changeJob(this.value)"></select>
-            <p id="description"></p>
-        </div>
-        <div class="action-only-panel">
-            <button class="action-btn primary" onclick="selectJob()">
-                Ajukan Pekerjaan <span>›</span>
-            </button>
-            <button class="action-btn" onclick="acceptJob()">
-                Terima Pekerjaan <span>›</span>
-            </button>
-            <button class="action-btn" onclick="takeGPS()">
-                GPS Lokasi <span>›</span>
-            </button>
-        </div>
+    <div class="content job-center-layout">
+        <aside class="jobs-panel">
+            <div class="jobs-panel-header">
+                <span>DAFTAR LOWONGAN</span>
+                <span class="jobs-count" id="jobsCount">10 JOB</span>
+            </div>
+            <div class="job-list" id="jobList" role="listbox" aria-label="Pilih pekerjaan"></div>
+        </aside>
+        <section class="job-detail-panel">
+            <div class="job-detail-heading">
+                <div class="job-emblem" id="jobEmblem">01</div>
+                <div class="job-heading-copy">
+                    <div class="job-kicker">CAREER OPPORTUNITY</div>
+                    <h3 id="jobTitle">Taxi Driver</h3>
+                    <p id="jobSubtitle"></p>
+                </div>
+            </div>
+            <p class="job-description" id="description"></p>
+            <div class="job-meta-grid">
+                <div class="job-meta"><small>STATUS</small><strong>TERBUKA</strong></div>
+                <div class="job-meta"><small>PERSYARATAN</small><strong id="jobRequirement">ID Card</strong></div>
+                <div class="job-meta"><small>PENDAFTARAN</small><strong>GUNAKAN GPS</strong></div>
+            </div>
+            <div class="job-actions">
+                <button class="action-btn primary" onclick="selectJob()">AJUKAN JOB</button>
+                <button class="action-btn" onclick="takeGPS()">GPS LOKASI</button>
+                <button class="action-btn" id="acceptButton" onclick="acceptJob()" disabled>TERIMA JOB</button>
+            </div>
+            <p class="job-selection-hint" id="selectionHint">Pilih pekerjaan untuk melihat detail dan persyaratan.</p>
+        </section>
     </div>
 
     <div class="notification" id="notification"></div>
@@ -913,15 +1207,23 @@ let selectedJob = false;
 /* CREATE JOB LIST */
 
 function renderJobs() {
-    const select = document.getElementById("jobSelect");
-    if (!select) return;
-    select.innerHTML = "";
+    const list = document.getElementById("jobList");
+    if (!list) return;
+    list.innerHTML = "";
     jobs.forEach((job, index) => {
-        const option = document.createElement("option");
-        option.value = String(index);
-        option.textContent = job.name;
-        select.appendChild(option);
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "job-card";
+        card.setAttribute("role", "option");
+        card.setAttribute("aria-selected", "false");
+        card.innerHTML = `<span class="job-card-id">${String(job.id).padStart(2, "0")}</span>
+            <span class="job-card-copy"><span class="job-card-name">${job.name}</span>
+            <span class="job-card-type">JOB UTAMA · ID ${job.id}</span></span>
+            <span class="job-card-arrow">›</span>`;
+        card.addEventListener("click", () => changeJob(index));
+        list.appendChild(card);
     });
+    document.getElementById("jobsCount").textContent = `${jobs.length} JOB`;
     changeJob(currentJob);
 }
 
@@ -937,14 +1239,22 @@ function changeJob(index) {
     document.getElementById("jobTitle").textContent = job.name;
     document.getElementById("jobSubtitle").textContent = job.subtitle;
     document.getElementById("description").textContent = job.description;
-    const select = document.getElementById("jobSelect");
-    if (select) select.value = String(selectedIndex);
+    document.getElementById("jobEmblem").textContent = String(job.id).padStart(2, "0");
+    document.getElementById("jobRequirement").textContent = job.id === 9 ? "Minimal level 5" : "ID Card";
+    document.querySelectorAll(".job-card").forEach((card, cardIndex) => {
+        const active = cardIndex === selectedIndex;
+        card.classList.toggle("active", active);
+        card.setAttribute("aria-selected", String(active));
+    });
+    document.getElementById("acceptButton").disabled = true;
+    document.getElementById("selectionHint").textContent = "Pilih pekerjaan, pasang GPS, lalu ajukan pendaftaran.";
 }
 
 /* SELECT JOB */
 
 function selectJob() {
     selectedJob = false;
+    document.getElementById("acceptButton").disabled = true;
     if (typeof cef === "undefined") {
         notify("CEF belum terhubung ke server.");
         return;
@@ -1013,6 +1323,8 @@ window.addEventListener("job:status", function(event) {
     const message = separator < 0 ? result : result.slice(separator + 1);
     if (status === "selected") selectedJob = true;
     else if (status === "error" || status === "accepted") selectedJob = false;
+    document.getElementById("acceptButton").disabled = !selectedJob;
+    document.getElementById("selectionHint").textContent = message || "Status diperbarui oleh server.";
     notify(message || "Permintaan diterima server.");
 });
 
