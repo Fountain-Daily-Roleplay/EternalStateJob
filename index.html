@@ -1672,8 +1672,8 @@ function closeMenu() {
 
 }
 
-window.addEventListener("job:status", function(event) {
-    const result = String(event.detail || "");
+function handleJobStatus(value) {
+    const result = String(value && value.detail !== undefined ? value.detail : value || "");
     const separator = result.indexOf("|");
     const status = separator < 0 ? "info" : result.slice(0, separator);
     const message = separator < 0 ? result : result.slice(separator + 1);
@@ -1682,7 +1682,12 @@ window.addEventListener("job:status", function(event) {
     document.getElementById("acceptButton").disabled = !selectedJob;
     document.getElementById("selectionHint").textContent = message || "Status diperbarui oleh server.";
     notify(message || "Permintaan diterima server.");
-});
+}
+
+window.addEventListener("job:status", handleJobStatus);
+if (window.cef && typeof window.cef.on === "function") {
+    window.cef.on("job:status", handleJobStatus);
+}
 
 document.addEventListener("keydown", function(event) {
     if (event.key === "Escape") {
@@ -1696,5 +1701,6 @@ document.addEventListener("keydown", function(event) {
 renderJobs();
 
 </script>
+
 </body>
 </html>
